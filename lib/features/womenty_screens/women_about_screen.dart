@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:testapp/features/womenty_screens/widget/profile_details.dart';
 import 'package:testapp/features/womenty_screens/widget/profile_picture.dart';
+import 'package:testapp/features/womenty_screens/widget/profile_setting.dart';
 
 class WomenAboutScreen extends StatelessWidget {
   const WomenAboutScreen({super.key});
@@ -8,6 +10,7 @@ class WomenAboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFFF9F6F1),
         title: Text(
           "Womenself",
           style: TextStyle(
@@ -50,57 +53,31 @@ class WomenAboutScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             children: [
-              ProfilePicture(imgPath: "assets/images/g1.jpg"),
-              SizedBox(height: 12),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Jenny Wilson",
-                    style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF374C44),
-                    ),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF9F6F1),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    "25 yrs old ",
-                    style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF374C44),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    "12th April 1999",
-                    style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF374C44),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    "jennywilson@gmail.com",
-                    style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF374C44),
-                    ),
-                  ),
-                ],
+                ),
+                child: Column(
+                  children: [
+                    ProfilePicture(imgPath: "assets/images/g1.jpg"),
+                    SizedBox(height: 12),
+                    ProfileDetails(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: ProfileSetting(),
               ),
             ],
           ),

@@ -7,8 +7,10 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.only(top: 20),
+      width: 110,
+
       child: Stack(
         children: [
           ClipOval(
@@ -22,14 +24,14 @@ class ProfilePicture extends StatelessWidget {
           ),
           Positioned(
             bottom: 5,
-            right: -5,
+            right: 10,
             child: GestureDetector(
               onTap: () {
                 debugPrint("edit profile pic clicked");
               },
               child: Container(
-                height: 27,
-                width: 27,
+                height: 30,
+                width: 30,
                 decoration: BoxDecoration(
                   color: Color(0xFFFFFFFF),
                   shape: BoxShape.circle,
