@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({super.key});
@@ -9,9 +13,72 @@ class ActivityScreen extends StatefulWidget {
 }
 
 class _ActivityScreenState extends State<ActivityScreen> {
+
   bool isOn = false;
+  File? _pickedImage;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source) async {
+    if (source == ImageSource.camera) {
+      var status = await Permission.camera.request();
+      if (!status.isGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Camera permission denied")),
+        );
+        return;
+      }
+    }
+
+    if (source == ImageSource.gallery) {
+      var status = await Permission.photos.request(); // for iOS
+      var storageStatus = await Permission.storage.request(); // Android < 13
+      var mediaStatus = await Permission.mediaLibrary.request(); // Android 13+
+      if (!status.isGranted && !storageStatus.isGranted && !mediaStatus.isGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Gallery permission denied")),
+        );
+        return;
+      }
+    }
+
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedImage = File(pickedFile.path);
+      });
+    }
+  }
+
+
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Select Image Source"),
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              Navigator.pop(ctx);
+              _pickImage(ImageSource.camera);
+            },
+            icon: const Icon(Icons.camera_alt),
+            label: const Text("Camera"),
+          ),
+          TextButton.icon(
+            onPressed: () {
+              Navigator.pop(ctx);
+              _pickImage(ImageSource.gallery);
+            },
+            icon: const Icon(Icons.photo_library),
+            label: const Text("Gallery"),
+          ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: ListView(
         children: [
@@ -33,33 +100,36 @@ class _ActivityScreenState extends State<ActivityScreen> {
                 ),
                 Container(
                   color: Color(0xFFF9F6F1),
-                  child: DottedBorder(
-                    options: RectDottedBorderOptions(
-                      dashPattern: [10, 5],
-                      strokeWidth: 3,
-                      padding: EdgeInsets.only(
-                        top: 50,
-                        left: 100,
-                        right: 120,
-                        bottom: 40,
+                  child: GestureDetector(
+                    onTap:  _showImageSourceDialog,
+                    child: DottedBorder(
+                      options: RectDottedBorderOptions(
+                        dashPattern: [10, 5],
+                        strokeWidth: 3,
+                        padding: EdgeInsets.only(
+                          top: 50,
+                          left: 100,
+                          right: 120,
+                          bottom: 40,
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/images/camera_icon.png',
-                          height: 94,
-                          width: 94,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "Upload Image",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/images/camera_icon.png',
+                            height: 94,
+                            width: 94,
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 5),
+                          Text(
+                            "Upload Image",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -123,14 +193,31 @@ class _ActivityScreenState extends State<ActivityScreen> {
               ),
             ),
           ),
-          SizedBox(height: 10,),
-          Row(
+          SizedBox(height: 5,),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                decoration: BoxDecoration(shape: BoxShape.circle),
+                height: 52,
+                width: 52,
+                child: Icon(Icons.arrow_back),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF5C7F71)),
+                    shape: BoxShape.circle,color: Colors.white),
+              ),
+              Container(
+                height: 52,
+                width: 298,
+                child: Center(
+                  child: Text("Create"),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(20),
+                ),
               )
             ],
-          )
+          ),
+          SizedBox(height: 20,),
         ],
       ),
     );
