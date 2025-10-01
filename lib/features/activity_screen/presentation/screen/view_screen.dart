@@ -53,81 +53,164 @@ class ViewScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              "Morning Yoga in the Park",
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              "start your weekend with a peaceful yoga session\n in the park.",
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ListTile(
-            leading: Image.asset('assets/images/profile-image.png'),
-            title: Text("Grace Williams",style: TextStyle(
-              fontWeight: FontWeight.bold,
-
-            ),),
-            subtitle: Text("Organizer"),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Container(
-              height: 116,
-              width: 363,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                border: Border.all(color: Colors.grey)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0, top: 10),
-                child: Column(
-                  spacing: 10,
+            child: Column(
+              spacing: 5,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Morning Yoga in the Park",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Text(
+                  "start your weekend with a peaceful yoga session\n in the park.",
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 10),
+                ListTile(
+                  leading: Image.asset('assets/images/profile-image.png'),
+                  title: Text(
+                    "Grace Williams",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text("Organizer"),
+                ),
+                Container(
+                  height: 116,
+                  width: 363,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0,top: 8,),
+                    child: Column(
+                      spacing: 10,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.location_on),
+                            SizedBox(width: 5),
+                            Text("Parc de Mon Repos, Lausanne,switzerland"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.access_time),
+                            SizedBox(width: 5),
+                            Text("7:30 AM to 9:00 AM"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.calendar_today_outlined),
+                            SizedBox(width: 5),
+                            Text("21 September 2025"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  spacing: 3,
                   children: [
-                    Row(
+                    Container(
+                      height: 40,
+                      width: 3,
+                      decoration: BoxDecoration(color: Colors.grey),
+                    ),
+                    SizedBox(width: 5),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.location_on),
-                        SizedBox(width: 5,),
-                        Text("Parc de Mon Repos, Lausanne,switzerland"),
+                        Text("Target Audience"),
+                        Text(
+                          "Women",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
-                    Row(
+                    SizedBox(width: 20),
+                    Container(
+                      height: 40,
+                      width: 3,
+                      decoration: BoxDecoration(color: Colors.grey),
+                    ),
+                    SizedBox(width: 5),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.access_time),
-                        SizedBox(width: 5,),
-                        Text("7:30 AM to 9:00 AM"),
+                        Text("Visibility"),
+                        Text(
+                          "35 KM",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
-                    Row(
+                    SizedBox(width: 25),
+                    Container(
+                      height: 40,
+                      width: 3,
+                      decoration: BoxDecoration(color: Colors.grey),
+                    ),
+                    SizedBox(width: 5),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.calendar_today_outlined),
-                        SizedBox(width: 5,),
-                        Text("21 September 2025"),
+                        Text("Category"),
+                        Text(
+                          "Institution",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
-              ),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(2), // border width
+                      decoration: BoxDecoration(
+                        color: Colors.grey, // border color
+                        shape: BoxShape.circle,
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.message_outlined,color: Colors.grey,),
+                        radius: 32,
+                      ),
+                    ),
+
+                    SizedBox(width: 5,),
+                    Container(
+                      height: 56,
+                      width: 295,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF5C7F71),
+                        borderRadius: BorderRadius.circular(30)
+                      ),
+                     
+                      child: Center(
+                        child: Text("Join"),
+                      ),
+                    )
+
+                  ],
+                )
+              ],
             ),
           ),
-          Row(
-            children: [
-              Icon(Icons.home),
-              VerticalDivider(
-                color: Colors.pink,
-                thickness: 20,
-                width: 20,   // space around the divider
-              ),
-              Icon(Icons.settings),
-            ],
-          )
-
         ],
       ),
     );
