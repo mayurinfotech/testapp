@@ -22,6 +22,7 @@ class DeleteBottomSheetDemo extends StatelessWidget {
               imageAsset: "assets/images/delete_box.png",
               confirmColor: Colors.red,
               onConfirm: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>DeleteBottomSheetDemo()));
                 print("Delete Conversation!");
               },
             );
